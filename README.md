@@ -15,6 +15,7 @@ Given a linked list with `value` and `next` properties, do the following:
 
 **Restrictions**:
 
+This is a functional programming exercise! Hence, the following restrictions apply:
 - The inpout linked list cannot be mutated, part 2 needs to be a 100% pure function 
 - Do not use any built-in data structures or methods, only variables and functions, i.e.
   - no arrays, no objects except the (immutable) list nodes themselves
