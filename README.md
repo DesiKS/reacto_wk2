@@ -9,14 +9,14 @@
 const mkNode = (value, next = null) => ({ value, next })
 const nums = mkNode(1, mkNode(2, mkNode(3)))
 ```
-
-1. Given a linked list with `.value` (first value) and `.next` (remaining list) interface, log the values in reverse order.
-2. Write a function which returns a new reversed linked list.
+Given a linked list with `value` and `next` properties, do the following:
+Part 1. Log the values in reverse order.
+Part 2. Write a function which returns a new reversed linked list.
 
 **Restrictions**:
 
-- no mutation at all, 100% pure (except for `console.log` in Part 1)
-- no built-in data structures or methods, only variables / functions / control flow
+- The inpout linked list cannot be mutated, part 2 needs to be a 100% pure function 
+- Do not use any built-in data structures or methods, only variables and functions, i.e.
   - no arrays, no objects except the (immutable) list nodes themselves
   - no iterables or iteration protocol (`for`-`of`, `...`)
 
@@ -30,6 +30,8 @@ Part 1:
 const nums = mkNode(1, mkNode(2, mkNode(3)))
 logReverse(nums)
 ```
+
+Output:
 
 ```
 3
@@ -45,26 +47,28 @@ const reversed = reverse(nums)
 console.log(reversed)
 ```
 
+Output:
+
 ```
 { value: 3, next: { value: 2, next: { value: 1, next: null } } }
 ```
 
 ---
 
-class: center middle
+
 ## Interviewer Guide
 
 ---
 
-### RE
+### RE -
 
 * Give Part 1 before hinting that there is a Part 2 (if you can).
 * The list is singly-linked – it only has `value` (or `head`) and `next` (or `tail`) properties.
-* The list can be implemented as a class, or factory function, or just manually-constructed POJOs. It doesn't really matter.
+* The list can be implemented as a class, or factory function, or just manually-constructed objects. 
 
 ---
 
-### AC
+### - AC -
 
 * List nodes can be constructed, but _not_ changed after construction.
 
@@ -83,23 +87,22 @@ newNodeBad.next = oldNode
 
 ---
 
-### TO
+### - TO
 
 - Ensure solution has no reassigned variables, parameters, or properties
-- Ensure solution uses no built-in data structures or methods (except the list objects themselves)
+- Ensure solution uses no built-in data structures or methods (except the node objects themselves)
 - Best possible time & space for Part 1: `O(n)` time, `O(n)` stack space
-  - Tail recursion won't work because we need to cause an effect (`console.log`)
-- Best possible time & space for Part 1: `O(n)` time, `O(n)` space
+- Best possible time & space for Part 2: `O(n)` time, `O(n)` space
   - Have to construct an all-new list of n nodes, that takes time and space!
 
 ---
 
 ### Answers to Common Questions
 
-- Is this actually better than loops or whatever?
-  - In JS? Not necessarily. Sometimes recursion is cleaner or more natural looking, but it is rarely faster or smaller than an imperative loop. In functional languages, you don't have the option of a loop, but a _tail-recursive_ function gets optimized into a loop by the compiler anyway. Also, better data structures exist than linked lists!
+- Is recursion actually better than loops?
+  - In JavaScript not necessarily. Sometimes recursion is cleaner or more natural looking, but it is rarely faster or smaller than an imperative loop. In functional languages, you don't have the option of a loop, but a _tail-recursive_ function gets optimized into a loop by the compiler anyway.
 - So what's the point?
-  - FP isn't just "normal programming minus some conveniences" – by structuring code in terms of functions, static typing, purity, etc. you actually also unlock and gain new tools for static analysis (dev tools and enforced correctness), composability, ability to reason about code in terms of laws, etc. This REACTO doesn't reveal any of that however, it's just a fun/challenging puzzle.
+  - Functional programming isn't just "normal programming minus some conveniences" – by structuring code in terms of functions, static typing, purity, etc. you actually also unlock and gain new tools for static analysis (dev tools and enforced correctness), composability, ability to reason about code in terms of laws, etc. 
 - How do I account for recursion in Big O?
   - The space complexity due to recursion is a factor of the maximum height of the call stack (i.e. the deepest recursive branch). The time complexity can be harder to analyze as it depends on whether you have multiple recursive calls – you need a way to figure out how many recursive calls you will use in total.
 
@@ -129,7 +132,7 @@ const reverse = (oldList, newList = null) => {
 }
 ```
 
-In FP langs, you cannot have "optional" params, so you'd do this:
+In functional programming languages, you cannot have "optional" parameters, so you'd do this:
 
 ```js
 const reverse = initList => {
@@ -144,9 +147,9 @@ const reverse = initList => {
 
 ---
 
-## Part 2B: FP Veteran Solution (Explicit Fold, Currying, Combinators)
+## Part 2B: Functional Programming Veteran Solution (Explicit Fold, Currying, Combinators)
 
-Something to share afterwards; not an expected REACTO solution, but something a practiced FP-er might translate from similar built-in functions in e.g. Haskell.
+This is NOT an expected REACTO solution! It's an example of what a practiced functional programmer might translate from similar built-in functions in e.g. Haskell.
 
 ```js
 const foldl = (combine, accum) => list => {
@@ -161,34 +164,3 @@ const reverse = foldl(flip(mkNode), null)
 ```
 
 ---
-
-## Part 2C: Inefficient Solution (Concat)
-
-This isn't an intended solution, but is included for your information / in case students try this approach.
-
-```js
-// O(l + r) time, O(l + r) space
-const concat = (left, right) => {
-    if (!left) return right
-    if (!right) return left // optional optimization
-    return mkNode(
-        left.value,
-        concat(left.next, right)
-    )
-}
-
-// O(n^2) time, O(n) space
-const reverseMeh = list => {
-    if (!list) return list
-    return concat(
-        reverseMeh(list.next),
-        mkNode(list.value)
-    )
-}
-```
-
----
-
-## Summary / Resources
-
-* [Wikipedia: cons cells](https://en.wikipedia.org/wiki/Cons)
