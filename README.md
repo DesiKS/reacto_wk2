@@ -10,8 +10,8 @@ const mkNode = (value, next = null) => ({ value, next })
 const nums = mkNode(1, mkNode(2, mkNode(3)))
 ```
 Given a linked list with `value` and `next` properties, do the following:
-Part 1. Log the values in reverse order.
-Part 2. Write a function which returns a new reversed linked list.
+- Part 1. Log the values in reverse order.
+- Part 2. Write a function which returns a new reversed linked list.
 
 **Restrictions**:
 
