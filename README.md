@@ -122,7 +122,7 @@ const logReversed = list => {
 
 ---
 
-## Part 2A: Expected / Efficient Solution (Implicit Fold)
+## Part 2A Expected / Efficient Solution (Implicit Fold)
 
 ```js
 // O(n) time, O(n) space, tail-recursive
@@ -148,7 +148,7 @@ const reverse = initList => {
 
 ---
 
-## Part 2B: Functional Programming Veteran Solution (Explicit Fold, Currying, Combinators)
+## Part 2B Functional Programming Veteran Solution (Explicit Fold, Currying, Combinators)
 
 This is NOT an expected REACTO solution! It's an example of what an experienced functional programmer might translate from similar built-in functions in e.g. Haskell.
 
