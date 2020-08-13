@@ -165,3 +165,7 @@ const reverse = foldl(flip(mkNode), null)
 ```
 
 ---
+
+## Resources
+
+Desi's repl: https://repl.it/@shunturova/RuddyInsistentKeyboardmapping#main.js
